@@ -22,10 +22,11 @@ def print_header
   puts "The students of Villains Academy"
   puts "------------"
 end
-
+#students now print out with a number starting from 1
+#each.with_index was used sto start at 1 as each_with_index takes no arguments and starts at 0
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each.with_index(1) do |student, index|
+    puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 

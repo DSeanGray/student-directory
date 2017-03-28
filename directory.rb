@@ -6,14 +6,24 @@ def input_students
   #create and empty array
   students = []
   #get the first name
-  name = gets.chomp
+  puts "Enter Name:"
+  name = gets.chomp.capitalize
+  #getting input for their cohort
+  puts "Enter Cohort:"
+  cohort = gets.chomp.capitalize
+
   #while the name is not empty, repeat this code
   while !name.empty? do
-    #add the student has to the array
-    students << {name: name, cohort: :november}
+    #add the student info to the array if the user gives input for both values
+    if !cohort.empty?
+      students << {name: name, cohort: cohort}
+    end
     puts "Now we have #{students.count} students".center(100)
     #get another name from the user
-    name = gets.chomp
+    puts "Enter Name:"
+    name = gets.chomp.capitalize
+    puts "Enter Cohort:"
+    cohort = gets.chomp.capitalize
   end
   #return the array of students
   students
@@ -24,9 +34,17 @@ def print_header
   puts "The students of Villains Academy".center(100)
   puts "----------------------".center(100)
 end
+
+#students print out with their index position starting at 1
+#each.with_index was used sto start at 1 as each_with_index takes no arguments and starts at 0
+def print(students)
+  students.each.with_index(1) do |student, index|
+    puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(100)
+  end
+end
+
 #getting input from the user for a first name first letter
 def user_input_letter
-  puts "----------------------".center(100)
   puts "Type the first letter of the student names you want to see and press return.".center(100)
   first_letter = gets.chomp
 end
@@ -48,14 +66,6 @@ def students_by_length(students)
     puts "#{student[:name]} (#{student[:cohort]} cohort)".center(100) if student[:name].length < 12
   end
 end
-end
-
-#students now print out with their index position starting at 1
-#each.with_index was used sto start at 1 as each_with_index takes no arguments and starts at 0
-def print(students)
-  students.each.with_index(1) do |student, index|
-    puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(100)
-  end
 end
 
 

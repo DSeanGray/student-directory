@@ -11,6 +11,7 @@ def input_students
   #getting input for their cohort
   puts "Enter Cohort:"
   cohort = gets.chomp.capitalize
+  #could use ".strip" to delete whitespace and new lines but chomp acheives the same thing.
 
   #while the name is not empty, repeat this code
   while !name.empty? do

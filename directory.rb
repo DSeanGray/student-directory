@@ -46,6 +46,16 @@ def print(students)
   end
 end
 
+def print_while(students)
+  nums = 0
+  until nums == students.count do
+    students.each.with_index(1) do |student, index|
+      puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(100)
+      nums += 1
+    end
+  end
+end
+
 #getting input from the user for a first name first letter
 def user_input_letter
   puts "Type the first letter of the student names you want to see and press return.".center(100)
@@ -79,7 +89,7 @@ end
 #nothing happens in the program until these methods are called
 students = input_students
 print_header
-print(students)
+print_while(students)
 students_by_first_letter(students, user_input_letter)
 students_by_length(students)
 print_footer(students)

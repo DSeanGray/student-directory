@@ -1,3 +1,29 @@
+def interactive_menu
+  students = []
+  loop do
+  #1. print the menu and ask what to do
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit" # 9, we will add more later.
+  #2. read the input and save it to a variable
+  selection = gets.chomp
+  #3.do what the user asked
+  case selection
+    when "1"
+      students = input_students
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit #this terminates the program
+    else
+      puts "I don't know what you mean. Try again."
+    end
+  end
+  #4. repeat from step 1
+end
+
 #A method that takes user input and places it as a hash into a new array
 def input_students
   puts "Please enter the names of the students.".center(100)
@@ -88,13 +114,19 @@ end
 
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students".center(100)
+  if names.count > 1
+    puts "Overall, we have #{names.count} great students.".center(100)
+  else
+    puts "Overall, we have #{names.count} great student.".center(100)
+  end
 end
 
 #nothing happens in the program until these methods are called
-students = input_students
-print_header
-print(students)
-students_by_first_letter(students, user_input_letter)
-students_by_length(students)
-print_footer(students)
+
+interactive_menu
+#students = input_students
+#print_header
+#print(students)
+#students_by_first_letter(students, user_input_letter)
+#students_by_length(students)
+#print_footer(students)

@@ -38,8 +38,9 @@ def print_header
 end
 
 #students print out with their index position starting at 1
-#each.with_index was used sto start at 1 as each_with_index takes no arguments and starts at 0
+#each.with_index was used to start at 1 as each_with_index takes no arguments and starts at 0
 def print(students)
+  students.sort_by! { |hash| hash[:cohort] }
   students.each.with_index(1) do |student, index|
     puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(100)
   end

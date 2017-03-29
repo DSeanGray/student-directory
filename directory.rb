@@ -17,6 +17,8 @@ def input_students
     #add the student info to the array if the user gives input for both values
     if !cohort.empty?
       students << {name: name, cohort: cohort}
+    else
+      students << {name: name, cohort: :empty}
     end
     puts "Now we have #{students.count} students".center(100)
     #get another name from the user

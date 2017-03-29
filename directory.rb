@@ -20,7 +20,11 @@ def input_students
     else
       students << {name: name, cohort: :empty}
     end
-    puts "Now we have #{students.count} students".center(100)
+    if students.count > 1
+      puts "Now we have #{students.count} students.".center(100)
+    else
+      puts "Now we have #{students.count} student.".center(100)
+    end
     #get another name from the user
     puts "Enter Name:"
     name = gets.chomp.capitalize
@@ -89,7 +93,7 @@ end
 #nothing happens in the program until these methods are called
 students = input_students
 print_header
-print_while(students)
+print(students)
 students_by_first_letter(students, user_input_letter)
 students_by_length(students)
 print_footer(students)

@@ -1,3 +1,4 @@
+ARGV.first
 #assigning a global variable accessible to all methods
 @students = []
 
@@ -35,7 +36,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -51,13 +52,25 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-      @students << {name: name, cohort: cohort.to_sym}
+      @students << {name: name, cohort: cohort}
     end
     file.close
+end
+
+def try_load_students
+  filename = ARGV.first #first argument from the command line
+  return if filename.nil?# get out of the method if it isn't given
+  if File.exists?(filename) #if file exists
+    load_students(filename) #load that file using our own method
+     puts "Loaded #{@students.count} from #{filename}"
+  else #if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit #quit
+  end
 end
 
 #A method that takes user input and places it as a hash into a new array
@@ -69,10 +82,10 @@ def input_students
   students = []
   #get the first name
   puts "Enter Name:"
-  name = gets.chomp.capitalize
+  name = STDIN.gets.chomp.capitalize
   #getting input for their cohort
   puts "Enter Cohort:"
-  cohort = gets.chomp.capitalize
+  cohort = STDIN.gets.chomp.capitalize
   #could use ".strip" to delete whitespace and new lines but chomp acheives the same thing.
 
   #while the name is not empty, repeat this code
@@ -90,9 +103,9 @@ def input_students
     end
     #get another name from the user
     puts "Enter Name:"
-    name = gets.chomp.capitalize
+    name = STDIN.gets.chomp.capitalize
     puts "Enter Cohort:"
-    cohort = gets.chomp.capitalize
+    cohort = STDIN.gets.chomp.capitalize
   end
   #return the array of students
   students
@@ -126,7 +139,7 @@ end
 #getting input from the user for a first name first letter
 def user_input_letter
   puts "Type the first letter of the student names you want to see and press return.".center(100)
-  first_letter = gets.chomp
+  first_letter = STDIN.gets.chomp
 end
 
 #a method that take the students array and asks it to print out array items if they meet
@@ -140,7 +153,7 @@ end
 def students_by_length
   puts "----------------------".center(100)
   puts "Print student names under 12 characters? \n (Y/N)".center(100)
-  answer = gets.chomp.upcase
+  answer = STDIN.gets.chomp.upcase
   if answer == 'Y'
   @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)".center(100) if student[:name].length < 12

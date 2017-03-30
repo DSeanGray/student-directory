@@ -177,6 +177,7 @@ end
 #nothing happens in the program until these methods are called
 
 try_load_students
+load_students
 interactive_menu
 #students = input_students
 #print_header

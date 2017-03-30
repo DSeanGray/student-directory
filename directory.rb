@@ -1,4 +1,3 @@
-ARGV.first
 #assigning a global variable accessible to all methods
 @students = []
 
@@ -29,7 +28,7 @@ def process(selection)
   when "9"
     exit
   else
-    puts "I don't know that you mean, try again"
+    puts "I don't know what you mean, try again"
   end
 end
 
@@ -174,6 +173,7 @@ end
 
 #nothing happens in the program until these methods are called
 
+try_load_students
 interactive_menu
 #students = input_students
 #print_header

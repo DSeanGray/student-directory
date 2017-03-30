@@ -4,6 +4,7 @@
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -13,30 +14,38 @@ def show_students
   print_footer
 end
 
-def interactive_menu
-
-  loop do
-  #1. print the menu and ask what to do
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "9. Exit" # 9, we will add more later.
-  #2. read the input and save it to a variable
-  selection = gets.chomp
-  #3.do what the user asked
+def process(selection)
   case selection
-    when "1"
-      students = input_students
-    when "2"
-      print_header
-      print_student_list
-      print_footer
-    when "9"
-      exit #this terminates the program
-    else
-      puts "I don't know what you mean. Try again."
-    end
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "3"
+    save_students
+  when "9"
+    exit
+  else
+    puts "I don't know that you mean, try again"
   end
-  #4. repeat from step 1
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def save_students
+  #open the file for writing
+  file = File.open("students.csv", "w")
+  #iterate over the array fo students
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
 end
 
 #A method that takes user input and places it as a hash into a new array

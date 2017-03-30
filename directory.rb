@@ -1,5 +1,20 @@
+#assigning a global variable accessible to all methods
+@students = []
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_student_list
+  print_footer
+end
+
 def interactive_menu
-  students = []
+
   loop do
   #1. print the menu and ask what to do
   puts "1. Input the students"
@@ -13,8 +28,8 @@ def interactive_menu
       students = input_students
     when "2"
       print_header
-      print(students)
-      print_footer(students)
+      print_student_list
+      print_footer
     when "9"
       exit #this terminates the program
     else
@@ -43,14 +58,14 @@ def input_students
   while !name.empty? do
     #add the student info to the array if the user gives input for both values
     if !cohort.empty?
-      students << {name: name, cohort: cohort}
+      @students << {name: name, cohort: cohort}
     else
-      students << {name: name, cohort: :empty}
+      @students << {name: name, cohort: :empty}
     end
-    if students.count > 1
-      puts "Now we have #{students.count} students.".center(100)
+    if @students.count > 1
+      puts "Now we have #{@students.count} students.".center(100)
     else
-      puts "Now we have #{students.count} student.".center(100)
+      puts "Now we have #{@students.count} student.".center(100)
     end
     #get another name from the user
     puts "Enter Name:"
@@ -70,17 +85,17 @@ end
 
 #students print out with their index position starting at 1
 #each.with_index was used to start at 1 as each_with_index takes no arguments and starts at 0
-def print(students)
-  students.sort_by! { |hash| hash[:cohort] }
-  students.each.with_index(1) do |student, index|
+def print_student_list
+  @students.sort_by! { |hash| hash[:cohort] }
+  @students.each.with_index(1) do |student, index|
     puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(100)
   end
 end
 
-def print_while(students)
+def print_while
   nums = 0
   until nums == students.count do
-    students.each.with_index(1) do |student, index|
+    @students.each.with_index(1) do |student, index|
       puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(100)
       nums += 1
     end
@@ -96,28 +111,30 @@ end
 #a method that take the students array and asks it to print out array items if they meet
 #the IF coniditon that takes x from user_input_letter
 def students_by_first_letter(students, x)
-  students.each do |student|
+  @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)".center(100) if student[:name].start_with?(x)
   end
 end
 
-def students_by_length(students)
+def students_by_length
   puts "----------------------".center(100)
   puts "Print student names under 12 characters? \n (Y/N)".center(100)
   answer = gets.chomp.upcase
   if answer == 'Y'
-  students.each do |student|
+  @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)".center(100) if student[:name].length < 12
   end
 end
 end
 
 
-def print_footer(names)
-  if names.count > 1
-    puts "Overall, we have #{names.count} great students.".center(100)
+def print_footer
+  if @students.count > 1
+    puts "We have #{@students.count} great students in total. "
+  elsif @students.count == 1
+    puts "We have 1 great student in total. "
   else
-    puts "Overall, we have #{names.count} great student.".center(100)
+    puts "There are no students in the Villains Academy"
   end
 end
 

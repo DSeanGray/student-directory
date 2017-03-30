@@ -55,9 +55,13 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-      @students << {name: name, cohort: cohort}
+      arr_input(name, cohort.to_sym)
     end
     file.close
+end
+
+def arr_input(name, month)
+  @students << {name: name, cohort: month.to_sym}
 end
 
 def try_load_students
@@ -84,17 +88,18 @@ def input_students
   name = STDIN.gets.chomp.capitalize
   #getting input for their cohort
   puts "Enter Cohort:"
-  cohort = STDIN.gets.chomp.capitalize
+  month = STDIN.gets.chomp.capitalize
   #could use ".strip" to delete whitespace and new lines but chomp acheives the same thing.
 
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student info to the array if the user gives input for both values
-    if !cohort.empty?
-      @students << {name: name, cohort: cohort}
+    if !month.empty?
+      arr_input(name, month)
     else
-      @students << {name: name, cohort: :empty}
+      arr_input(name, :empty)
     end
+
     if @students.count > 1
       puts "Now we have #{@students.count} students.".center(100)
     else
@@ -104,10 +109,8 @@ def input_students
     puts "Enter Name:"
     name = STDIN.gets.chomp.capitalize
     puts "Enter Cohort:"
-    cohort = STDIN.gets.chomp.capitalize
+    month = STDIN.gets.chomp.capitalize
   end
-  #return the array of students
-  students
 end
 
 

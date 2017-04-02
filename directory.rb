@@ -58,6 +58,7 @@ def load_students(filename = "students.csv")
       arr_input(name, cohort.to_sym)
     end
     file.close
+    puts "Loaded #{@students.count} from #{filename}"
 end
 
 def arr_input(name, month)
@@ -65,8 +66,7 @@ def arr_input(name, month)
 end
 
 def try_load_students
-  filename = ARGV.first #first argument from the command line
-  return if filename.nil?# get out of the method if it isn't given
+  ARGV.first.nil? ? filename = "students.csv" : filename = ARGV.first# if no terminal argugement, use students.csv else use user input
   if File.exists?(filename) #if file exists
     load_students(filename) #load that file using our own method
      puts "Loaded #{@students.count} from #{filename}"
@@ -81,16 +81,12 @@ def input_students
   puts "Please enter the names of the students.".center(100)
   puts "To finish, just hit return.".center(100)
   puts "----------------------".center(100)
-  #create and empty array
-  students = []
   #get the first name
   puts "Enter Name:"
   name = STDIN.gets.chomp.capitalize
-  #getting input for their cohort
   puts "Enter Cohort:"
   month = STDIN.gets.chomp.capitalize
   #could use ".strip" to delete whitespace and new lines but chomp acheives the same thing.
-
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student info to the array if the user gives input for both values
@@ -105,7 +101,7 @@ def input_students
     else
       puts "Now we have #{@students.count} student.".center(100)
     end
-    #get another name from the user
+
     puts "Enter Name:"
     name = STDIN.gets.chomp.capitalize
     puts "Enter Cohort:"
